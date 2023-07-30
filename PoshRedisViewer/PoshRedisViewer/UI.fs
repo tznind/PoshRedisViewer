@@ -11,6 +11,9 @@ open Terminal.Gui
 #nowarn "0760"
 
 type Views = {
+    TopMenuBar : MenuBar
+    MenuBarItemOptions : MenuBarItem
+    MenuItemUseRegex : MenuItem
     CommandFrameView: FrameView
     CommandTextField: TextField
     DbPickerCheckBox: CheckBox
@@ -125,6 +128,23 @@ let makeViews() =
         Height = Dim.Fill()
     )
 
+    let topMenuBar = MenuBar(
+
+    )
+
+    let menuItemUseRegex = MenuItem(
+        null,
+        "Use Regex",
+        null
+    )
+
+    let menuBarItemOptions = MenuBarItem(
+        "Options",
+        [menuItemUseRegex],
+        null
+    )
+
+
     let commandFrameView = FrameView(ustr "Command",
         Y = Pos.Bottom resultsFrameView,
         Width = Dim.Percent(70.f),
@@ -152,6 +172,9 @@ let makeViews() =
 
     let views: Views = {
         Top = Application.Top
+        TopMenuBar = topMenuBar
+        MenuBarItemOptions = menuBarItemOptions
+        MenuItemUseRegex = menuItemUseRegex
         Window = window
         KeyQueryFrameView = keyQueryFrameView
         KeyQueryTextField = keyQueryTextField
@@ -176,6 +199,7 @@ let makeViews() =
 
 let setupViewsPosition (views: Views) =
     views.Top {
+        views.TopMenuBar
         views.Window {
             views.KeyQueryFrameView {
                 views.KeyQueryTextField
